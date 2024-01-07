@@ -1,35 +1,60 @@
 <h1>Register</h1>
 
 <div class="register">
-    <form method="post">
+    <form #registerForm = "ngForm" (ngSubmit)="register(registerForm)">
         <input
             type="text"
-            [(ngModel)]="name"
             name="name"
             placeholder="Full Name"
-            required="required"
+
+            #name="ngModel"
+            [(ngModel)]="user.name"
+
+            required
+            minlength="4"
+            pattern="^[A-Za-z\s]+$"
+            [ngClass]="{'validationError': (name.touched && name.invalid)}"
             />
         <input
             type="email"
-            [(ngModel)]="email"
             name="email"
             placeholder="Email"
-            required="required"
+
+            #email = "ngModel"
+            [(ngModel)]="user.email"
+
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            [ngClass]="{'validationError': (email.touched && email.invalid)}"
         />
         <input
             type="password"
-            [(ngModel)]="password"
             name="password"
             placeholder="Password"
-            required="required"
+
+            #password = "ngModel"
+            [(ngModel)]="user.password"
+
+            required
+            minlength="4"
+            [ngClass]="{'validationError': (password.touched && password.invalid)}"
         />
         <input
             type="password"
-            [(ngModel)]="confirmPassword"
             name="confirmPassword"
             placeholder="Confirm password"
-            required="required"
+
+            #confirmPassword = "ngModel"
+            [(ngModel)]="user.confirmPassword"
+
+            required
+            minlength="4"
+            [ngClass]="{'validationError': (confirmPassword.touched && confirmPassword.invalid)}"
         />
-        <button type="submit" (click)="register()">Register</button>
+        <div class="notMatch" *ngIf="confirmPassword.touched && (user.password != user.confirmPassword)">
+            The passwords do not match
+        </div>
+
+        <input type="submit" [disabled]="registerForm.invalid || (user.password != user.confirmPassword)">
     </form>
   </div>

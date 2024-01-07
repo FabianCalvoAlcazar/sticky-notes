@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { UsersService } from 'src/app/users/users.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  providers: [UsersService]
 })
 export class RegisterComponent {
-  public email:string;
-  public password:string;
-  public name:string;
-  public confirmPassword:string;
+  public user: User;
 
-  constructor(){
-    this.email = "";
-    this.password = "";
-    this.confirmPassword = "";
-    this.name = "";
+  constructor(public userService: UsersService){
+    this.user = new User("","","","")
   }
 
-  register(){
-    console.log(this.email);
-    console.log(this.password);
+  register(form:any){
+    this.userService.register(this.user).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

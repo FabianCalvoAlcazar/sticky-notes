@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { UsersService } from 'src/app/users/users.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [UsersService]
 })
 export class LoginComponent {
-  public email:string;
-  public password:string;
+  public user: User;
 
-  constructor(){
-    this.email = "";
-    this.password = "";
+  constructor(public userService: UsersService){
+    this.user = new User("null","","","null")
   }
 
   login(){
-    console.log(this.email);
-    console.log(this.password);
+    this.userService.login(this.user).subscribe((data) => {
+      console.log(data)
+    })
   }
 }
