@@ -55,6 +55,9 @@
             The passwords do not match
         </div>
 
-        <input type="submit" [disabled]="registerForm.invalid || (user.password != user.confirmPassword)">
+        <div class="button-container">
+            <button class="back-button" (click)="goBack()">Back</button>
+            <input type="submit" [disabled]="registerForm.invalid || (user.password != user.confirmPassword)">
+        </div>
     </form>
   </div>

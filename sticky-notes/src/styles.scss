@@ -81,3 +81,26 @@ form input[disabled]{
     border-radius: 1rem;
     margin-top: 0px;
 }
+
+.button-container{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.back-button{
+    border: none;
+    font-size: 1rem;
+    color: #0e4d16;
+    font-weight: bold;
+    background-color: #bcd8c1;
+    width: 10em;
+    display: block;
+    padding: 0.875rem 1rem;
+    border-radius: 1.5rem;
+    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+    cursor: pointer;
+    margin: 0 auto;
+}

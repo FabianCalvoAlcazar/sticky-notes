@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UsersService } from 'src/app/users/users.service';
 
@@ -11,7 +12,7 @@ import { UsersService } from 'src/app/users/users.service';
 export class LoginComponent {
   public user: User;
 
-  constructor(public userService: UsersService){
+  constructor(public userService: UsersService, private router:Router){
     this.user = new User("null","","","null")
   }
 
@@ -19,5 +20,9 @@ export class LoginComponent {
     this.userService.login(this.user).subscribe((data) => {
       console.log(data)
     })
+  }
+
+  goBack() {
+    this.router.navigate(['/home']);
   }
 }
