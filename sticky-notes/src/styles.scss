@@ -65,6 +65,15 @@ form input[disabled]{
     cursor: not-allowed;
 }
 
+form input[type="submit"]:hover,
+.back-button:hover{
+    background-color: #abc4afc4;
+}
+
+form input[disabled]:hover{
+    background: #ccc;
+}
+
 .validationError{
     border-left: 5px solid rgb(170, 0, 0);
 }
