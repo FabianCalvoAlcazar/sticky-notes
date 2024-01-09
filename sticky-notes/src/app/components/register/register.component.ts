@@ -13,11 +13,22 @@ export class RegisterComponent {
   public user: UserModel;
 
   constructor(public _userService: UserService, private router:Router){
-    this.user = new UserModel("","","","")
+    this.user = new UserModel("","","","");
   }
 
-  register(form:any){
-    console.log(this._userService.testService())
+  register(){
+    this._userService.register(this.user).subscribe(
+      response => {
+        if (response.status == true) {
+          console.log(response.message)
+        } else {
+          console.log(response.message)
+        }
+      },
+      error => {
+        console.log("Something went wrong.")
+      }
+    )
   }
 
   goBack() {

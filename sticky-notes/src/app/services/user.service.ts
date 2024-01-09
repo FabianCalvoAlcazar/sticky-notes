@@ -26,7 +26,10 @@ export class UserService{
         return this._http.post(this.url+"/login",body,{headers:headers});
     }
 
-    register(){
+    register(user:UserModel):Observable<any>{
+        let body = JSON.stringify(user);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json')
 
+        return this._http.post(this.url+"/register",body,{headers:headers});
     }
 }

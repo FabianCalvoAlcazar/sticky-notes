@@ -24,6 +24,9 @@ export class LoginComponent {
         } else {
           console.log(response.message)
         }
+      },
+      error => {
+        console.log("Something went wrong.")
       }
     );
   }
