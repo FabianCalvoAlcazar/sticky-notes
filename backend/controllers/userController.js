@@ -1,6 +1,5 @@
 'use strict'
 
-const user = require('../models/user.js');
 var userModel = require('../models/user.js');
 var jwt = require('jsonwebtoken')
 var fs = require('fs');
@@ -9,11 +8,11 @@ var bcrypt = require('bcrypt')
 
 var controller = {
     login: function (req,res) {
-        var userEmail = req.body.email;
-        var userPassword = req.body.password;
+        let userEmail = req.body.email;
+        let userPassword = req.body.password;
         // The email is not provided or is undefined
-        if(userEmail == null || userEmail == undefined){
-            return res.status(404).send({
+        if((userEmail == null || userEmail == undefined) || (userPassword == null || userPassword == undefined)){
+            return res.status(400).send({
                 "message": "The petition is invalid.",
                 "status": false
             })
@@ -25,9 +24,10 @@ var controller = {
                 // Password is compared to the hashed version
                 bcrypt.compare(userPassword, model.password, (err, result) =>{
                     if (err) {
-                        return res.status(404).send({
+                        return res.status(500).send({
                             "message": "Error while hashing",
-                            "status": false
+                            "status": false,
+                            "error": err
                         });
                     }
 
@@ -50,7 +50,7 @@ var controller = {
                         })
                     // Incorrect password
                     } else {
-                        return res.status(404).send({
+                        return res.status(400).send({
                             "message": "Invalid username or password",
                             "status": false
                         })
@@ -63,6 +63,41 @@ var controller = {
                     "status": false
                 })
             }
+        }).catch((err)=>{
+            return res.status(500).send({
+                "message": "Something went wrong",
+                "status": false,
+                "Error": err
+            });
+        })
+    },
+    register: async function (req,res) {
+        var new_user = new userModel();
+        
+        new_user.name = req.body.name;
+        new_user.email = req.body.email;
+        new_user.password = await bcrypt.hash(req.body.password, 10);
+
+        // The email is not provided or is undefined
+        if((new_user.name  == null || new_user.name  == undefined) || (new_user.email == null || new_user.email == undefined) || (new_user.password == null || new_user.password == undefined)){
+            return res.status(400).send({
+                "message": "The petition is invalid.",
+                "status": false
+            })
+        }
+
+        new_user.save().then((model) => {
+            return res.status(200).send({
+                "message": "Registration succesful!",
+                "status": true,
+                "data": model
+            })
+        }).catch((err)=>{
+            return res.status(500).send({
+                "message": "Something went wrong",
+                "status": false,
+                "Error": err
+            });
         })
     }
 }
