@@ -58,7 +58,7 @@ var controller = {
                 });
             // Credentials are invalid
             } else {
-                return res.status(404).send({
+                return res.status(200).send({
                     "message": "Invalid username or password",
                     "status": false
                 })

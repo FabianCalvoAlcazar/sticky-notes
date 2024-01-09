@@ -1,25 +1,31 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
-import { UsersService } from 'src/app/users/users.service';
+import { UserModel } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [UsersService]
+  providers: [UserService]
 })
 export class LoginComponent {
-  public user: User;
+  public user: UserModel;
 
-  constructor(public userService: UsersService, private router:Router){
-    this.user = new User("null","","","null")
+  constructor(public _userService: UserService, private router:Router){
+    this.user = new UserModel("null","","","null")
   }
-
+  
   login(){
-    this.userService.login(this.user).subscribe((data) => {
-      console.log(data)
-    })
+    this._userService.login(this.user).subscribe(
+      response => {
+        if (response.token) {
+          console.log("Sesion iniciada, token:", response.token)
+        } else {
+          console.log(response.message)
+        }
+      }
+    );
   }
 
   goBack() {

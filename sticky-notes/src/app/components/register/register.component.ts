@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
-import { UsersService } from 'src/app/users/users.service';
+import { UserModel } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  providers: [UsersService]
+  providers: [UserService]
 })
 export class RegisterComponent {
-  public user: User;
+  public user: UserModel;
 
-  constructor(public userService: UsersService, private router:Router){
-    this.user = new User("","","","")
+  constructor(public _userService: UserService, private router:Router){
+    this.user = new UserModel("","","","")
   }
 
   register(form:any){
-    this.userService.register(this.user).subscribe((data) => {
-      console.log(data);
-    });
+    console.log(this._userService.testService())
   }
 
   goBack() {
