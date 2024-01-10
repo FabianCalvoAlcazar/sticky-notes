@@ -32,6 +32,34 @@ var controller = {
                 "Error": err
             });
         });
+    },
+
+    getStickyNotes: function (req,res) {
+        let userId = req.body._id;
+
+        if( userId == null || userId == undefined) {
+            return res.status(400).send({
+                "message": "The petition is invalid.",
+                "status": false
+            })
+        }
+        
+        stickyNoteModel.find({"owner": userId}).then((stickyNotes) => {
+            if(stickyNotes.length > 0){
+                return res.status(200).send({
+                    "message": stickyNotes
+                })
+            } else {    
+                return res.status(404).send({
+                    "message": "Nothing to show"
+                })
+            }
+        }).catch((err)=>{
+            return res.status(500).send({
+                title: "Something went wrong",
+                errorCode: err
+            })
+        })
     }
 }
 

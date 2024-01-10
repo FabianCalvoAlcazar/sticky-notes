@@ -15,5 +15,6 @@ router.post('/register', userController.register);
 
 // Rutas sticky notes
 router.post('/save', stickyNoteController.saveStickyNote)
+router.get('/stickyNotes', stickyNoteController.getStickyNotes)
 
 module.exports = router;
