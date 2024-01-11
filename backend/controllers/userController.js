@@ -1,10 +1,8 @@
 'use strict'
 
 var userModel = require('../models/user.js');
-var jwt = require('jsonwebtoken')
-var fs = require('fs');
-var path = require('path')
 var bcrypt = require('bcrypt')
+var validationController = require('./validationController.js')
 
 var controller = {
     login: function (req,res) {
@@ -19,50 +17,59 @@ var controller = {
         }
         userModel.findOne({"email": userEmail})
         .then((model)=>{
-            // The credentials are valid so we create the token
-            if(model){
-                // Password is compared to the hashed version
-                bcrypt.compare(userPassword, model.password, (err, result) =>{
-                    if (err) {
-                        return res.status(500).send({
-                            "message": "Error while hashing",
-                            "status": false,
-                            "error": err
-                        });
-                    }
-
-                    // Correct password
-                    if (result){
-                        var aux_user = {
-                            id: model._id,
-                            name: model.name,
-                            email: model.email,
-                            password: model.password
+            try {
+                // The credentials are valid so we create the token
+                if(model){
+                    // Password is compared to the hashed version
+                    bcrypt.compare(userPassword, model.password, (err, result) =>{
+                        if (err) {
+                            return res.status(500).send({
+                                "message": "Error while hashing",
+                                "status": false,
+                                "error": err
+                            });
                         }
-    
-                        //TODO Change the token password for a secure one
-                        const token = jwt.sign(aux_user, "1234")
-                        return res.status(200).send({
-                            "message": "User login successfully.",
-                            "token": token,
-                            "status": true,
-                            "userInformation": model
-                        })
-                    // Incorrect password
-                    } else {
-                        return res.status(400).send({
-                            "message": "Invalid username or password",
-                            "status": false
-                        })
-                    }
-                });
-            // Credentials are invalid
-            } else {
-                return res.status(200).send({
-                    "message": "Invalid username or password",
-                    "status": false
+
+                        // Correct password
+                        if (result){
+                            var aux_user = {
+                                id: model._id,
+                                name: model.name,
+                                email: model.email,
+                                password: model.password
+                            }
+
+                            const token = validationController.getToken(aux_user);
+
+                            return res.status(200).send({
+                                "message": "User login successfully.",
+                                "token": token,
+                                "status": true,
+                                "userInformation": model
+                            })
+                        // Incorrect password
+                        } else {
+                            return res.status(400).send({
+                                "message": "Invalid username or password",
+                                "status": false
+                            })
+                        }
+                    });
+                // Credentials are invalid
+                } else {
+                    return res.status(200).send({
+                        "message": "Invalid username or password",
+                        "status": false
+                    })
+                }
+            } catch (error) {
+                return res.status(500).send({
+                    "message": "Something went wrong",
+                    "status": false,
+                    "error": error
                 })
             }
+            
         }).catch((err)=>{
             return res.status(500).send({
                 "message": "Something went wrong",
@@ -99,6 +106,13 @@ var controller = {
                 "Error": err
             });
         })
+    },
+    verifyToken: function(token){
+        let user = jwt.verify(token, tokenPassword);
+        if (!user) {
+            return jwt.verify(token, tokenPassword);
+        }
+        return jwt.verify(token, tokenPassword);
     }
 }
 

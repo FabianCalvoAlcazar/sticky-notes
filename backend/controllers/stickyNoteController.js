@@ -1,6 +1,7 @@
 'use strict'
 
-var stickyNoteModel = require('../models/sticky-note.js');
+let stickyNoteModel = require('../models/sticky-note.js');
+let validationController = require('./validationController.js');
 
 var controller = {
     saveStickyNote: function (req,res) {
@@ -12,9 +13,18 @@ var controller = {
         newStickyNote.positionX = req.body.positionX;
         newStickyNote.positionY = req.body.positionY;
 
-        if( newStickyNote.owner == null || newStickyNote.title == null || newStickyNote.text == null || newStickyNote.positionX == null || newStickyNote.positionY == null) {
+        if( !req.headers.authorization || newStickyNote.owner == null || newStickyNote.title == null || newStickyNote.text == null || newStickyNote.positionX == null || newStickyNote.positionY == null) {
             return res.status(400).send({
                 "message": "The petition is invalid.",
+                "status": false
+            })
+        }
+
+        let userToken = req.headers.authorization.split(" ")[1];
+
+        if (validationController.verifyToken(userToken) == false) {
+            return res.status(401).send({
+                "message": "You have no permission to do this.",
                 "status": false
             })
         }
@@ -36,10 +46,18 @@ var controller = {
 
     getStickyNotes: function (req,res) {
         let userId = req.body._id;
+        let userToken = req.headers.authorization.split(" ")[1];
 
-        if( userId == null || userId == undefined) {
+        if( userId == null || userId == undefined || userToken == null || userToken == undefined ) {
             return res.status(400).send({
                 "message": "The petition is invalid.",
+                "status": false
+            })
+        }
+
+        if (validationController.verifyToken(userToken) == false) {
+            return res.status(401).send({
+                "message": "You have no permission to do this.",
                 "status": false
             })
         }
