@@ -106,13 +106,6 @@ var controller = {
                 "Error": err
             });
         })
-    },
-    verifyToken: function(token){
-        let user = jwt.verify(token, tokenPassword);
-        if (!user) {
-            return jwt.verify(token, tokenPassword);
-        }
-        return jwt.verify(token, tokenPassword);
     }
 }
 
