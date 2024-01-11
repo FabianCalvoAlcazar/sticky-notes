@@ -1,0 +1,63 @@
+<h1>Register</h1>
+
+<div class="register">
+    <form #registerForm = "ngForm" (ngSubmit)="register()">
+        <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+
+            #name="ngModel"
+            [(ngModel)]="user.name"
+
+            required
+            minlength="4"
+            pattern="^[A-Za-z\s]+$"
+            [ngClass]="{'validationError': (name.touched && name.invalid)}"
+            />
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+
+            #email = "ngModel"
+            [(ngModel)]="user.email"
+
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            [ngClass]="{'validationError': (email.touched && email.invalid)}"
+        />
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+
+            #password = "ngModel"
+            [(ngModel)]="user.password"
+
+            required
+            minlength="4"
+            [ngClass]="{'validationError': (password.touched && password.invalid)}"
+        />
+        <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
+
+            #confirmPassword = "ngModel"
+            [(ngModel)]="user.confirmPassword"
+
+            required
+            minlength="4"
+            [ngClass]="{'validationError': (confirmPassword.touched && confirmPassword.invalid)}"
+        />
+        <div class="notMatch" *ngIf="confirmPassword.touched && (user.password != user.confirmPassword)">
+            The passwords do not match
+        </div>
+
+        <div class="button-container">
+            <button class="back-button" (click)="goBack()">Back</button>
+            <input type="submit" [disabled]="registerForm.invalid || (user.password != user.confirmPassword)">
+        </div>
+    </form>
+  </div>

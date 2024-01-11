@@ -1,0 +1,38 @@
+<div id="login">
+    <div>
+        <h1>Login</h1>
+        <form #loginForm = "ngForm" class="login-form" (ngSubmit)="login()">
+            <input 
+                type="email" 
+                name="email"
+                placeholder="Username"
+
+                #email = "ngModel"
+                [(ngModel)]="user.email"
+
+                minlength="4"
+                required
+
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                [ngClass]="{'validationError': (email.touched && email.invalid)}"
+            ><br>
+            <input 
+                type="password"
+                name="password"
+                placeholder="Password"
+
+                #password = "ngModel"
+                [(ngModel)]="user.password"
+
+                minlength="4"
+                required
+
+                [ngClass]="{'validationError': (password.touched && password.invalid)}"
+            ><br>
+            <div class="button-container">
+                <button class="back-button" (click)="goBack()">Back</button>
+                <input type="submit" [disabled]="loginForm.invalid">
+            </div>
+        </form>
+    </div>
+</div>
