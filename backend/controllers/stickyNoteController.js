@@ -1,7 +1,9 @@
 'use strict'
 
+var jwt = require('jsonwebtoken')
+let tokenPassword = require('./global.js')
+
 let stickyNoteModel = require('../models/sticky-note.js');
-let validationController = require('./validationController.js');
 
 var controller = {
     saveStickyNote: function (req,res) {
@@ -22,53 +24,69 @@ var controller = {
 
         let userToken = req.headers.authorization.split(" ")[1];
 
-        if (validationController.verifyToken(userToken) == false) {
+        try {
+            jwt.verify(userToken, tokenPassword);
+
+            newStickyNote.save().then((model) => {
+                return res.status(200).send({
+                    "message": "Sticky Note saved succesfully!",
+                    "status": true,
+                    "data": model
+                })
+            })
+        } catch (error) {
             return res.status(401).send({
-                "message": "You have no permission to do this.",
+                "message": "Something went wrong.",
                 "status": false
             })
         }
-
-        newStickyNote.save().then((model) => {
-            return res.status(200).send({
-                "message": "Sticky Note saved succesfully!",
-                "status": true,
-                "data": model
-            })
-        }).catch((err)=>{
-            return res.status(500).send({
-                "message": "Something went wrong",
-                "status": false,
-                "Error": err
-            });
-        });
     },
 
     getStickyNotes: function (req,res) {
-        let userId = req.body._id;
-        let userToken = req.headers.authorization.split(" ")[1];
+        let userId = req.params.user_id;
 
-        if( userId == null || userId == undefined || userToken == null || userToken == undefined ) {
+        if( !req.headers.authorization || userId == null || userId == undefined ) {
             return res.status(400).send({
                 "message": "The petition is invalid.",
                 "status": false
             })
         }
 
-        if (validationController.verifyToken(userToken) == false) {
-            return res.status(401).send({
-                "message": "You have no permission to do this.",
+        let userToken = req.headers.authorization.split(" ")[1];
+
+        if( userToken == null || userToken == undefined ) {
+            return res.status(400).send({
+                "message": "The petition is invalid.",
                 "status": false
             })
         }
-        
+
+        try {
+            var user = jwt.verify(userToken, tokenPassword);
+        } catch (error) {
+            return res.status(500).send({
+                title: "Wrong Token",
+                error: error
+            })
+        }
+
         stickyNoteModel.find({"owner": userId}).then((stickyNotes) => {
             if(stickyNotes.length > 0){
                 return res.status(200).send({
+                    "user": {
+                        "id": user.id,
+                        "name": user.name,
+                        "email": user.email,
+                    },
                     "message": stickyNotes
                 })
             } else {    
-                return res.status(404).send({
+                return res.status(200).send({
+                    "user": {
+                        "id": user.id,
+                        "name": user.name,
+                        "email": user.email,
+                    },
                     "message": "Nothing to show"
                 })
             }
