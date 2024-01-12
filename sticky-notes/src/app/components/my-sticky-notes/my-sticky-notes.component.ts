@@ -24,6 +24,11 @@ export class MyStickyNotesComponent implements OnInit{
 
   ngOnInit(): void {
     this.getStickyNotes();
+    let notes = $(".stickyNote");
+    console.log("Las notas: ",notes)
+
+    let notesDocument = document.getElementsByClassName(".stickyNote");
+    console.log("Las notas: ",notesDocument)
   }
 
   getStickyNotes(){
