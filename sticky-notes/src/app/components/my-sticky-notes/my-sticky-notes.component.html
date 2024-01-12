@@ -1,0 +1,20 @@
+<h1>My sticky notes</h1>
+
+<h3>Bienvenido de nuevo {{user.name}}</h3>
+
+<div class="content">
+    <h4>Tus notas</h4>
+    <div class="noteContainer">
+        <ul *ngIf="thereAreNotes">
+            <li *ngFor="let note of stickyNotes">
+                <p>{{ note.title }}</p>
+                <p>{{ note.text }}</p>
+                <br>
+                <hr>    
+            </li>
+        </ul>
+        <div *ngIf="!thereAreNotes">
+            <h4>{{stickyNotes}}</h4>
+        </div>
+    </div>
+</div>

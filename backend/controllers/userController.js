@@ -2,7 +2,8 @@
 
 var userModel = require('../models/user.js');
 var bcrypt = require('bcrypt')
-var validationController = require('./validationController.js')
+var tokenPassword = require('./global.js')
+var jwt = require('jsonwebtoken')
 
 var controller = {
     login: function (req,res) {
@@ -39,7 +40,7 @@ var controller = {
                                 password: model.password
                             }
 
-                            const token = validationController.getToken(aux_user);
+                            const token = jwt.sign(aux_user, tokenPassword);
 
                             return res.status(200).send({
                                 "message": "User login successfully.",

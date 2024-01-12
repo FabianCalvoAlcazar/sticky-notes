@@ -20,7 +20,10 @@ export class LoginComponent {
     this._userService.login(this.user).subscribe(
       response => {
         if (response.token) {
-          console.log("Sesion iniciada, token:", response.token)
+          localStorage.setItem("token", response.token)
+          localStorage.setItem("userdata", JSON.stringify(response))
+          localStorage.setItem("userId", response.userInformation._id)
+          this.router.navigate(['/myStickyNotes/']);
         } else {
           console.log(response.message)
         }

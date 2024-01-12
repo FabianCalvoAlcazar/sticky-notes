@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ErrorComponent } from './components/error/error.component';
 import { HomeComponent } from './components/home/home.component';
+import { MyStickyNotesComponent } from './components/my-sticky-notes/my-sticky-notes.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HomeComponent } from './components/home/home.component';
     LoginComponent,
     RegisterComponent,
     ErrorComponent,
-    HomeComponent
+    HomeComponent,
+    MyStickyNotesComponent
   ],
   imports: [
     BrowserModule,
