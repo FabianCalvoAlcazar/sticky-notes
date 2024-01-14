@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
-import { StickyNoteModel } from 'src/app/models/stickyNote';
-import { UserModel } from 'src/app/models/user';
 import { StickyNoteService } from 'src/app/services/stickyNote.service';
 
 @Component({
@@ -20,15 +18,10 @@ export class MyStickyNotesComponent implements OnInit{
     this.user = "";
     this.stickyNotes = [];
     this.thereAreNotes = false;
+    this.getStickyNotes();
   }
 
   ngOnInit(): void {
-    this.getStickyNotes();
-    let notes = $(".stickyNote");
-    console.log("Las notas: ",notes)
-
-    let notesDocument = document.getElementsByClassName(".stickyNote");
-    console.log("Las notas: ",notesDocument)
   }
 
   getStickyNotes(){
@@ -39,6 +32,8 @@ export class MyStickyNotesComponent implements OnInit{
           this.stickyNotes = response.message;
 
           if (response.message != "Nothing to show"){
+            console.log(this.stickyNotes)
+
             this.thereAreNotes = true;
           }
         } else {

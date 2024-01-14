@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Global } from "./global.service";
 import { UserModel } from "../models/user";
-import { observableToBeFn } from "rxjs/internal/testing/TestScheduler";
 
 @Injectable()
 export class UserService{

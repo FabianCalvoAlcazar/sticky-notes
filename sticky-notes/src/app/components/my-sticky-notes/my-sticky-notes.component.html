@@ -1,16 +1,20 @@
 <h1>My sticky notes</h1>
 
-<h3>Bienvenido de nuevo {{user.name}}</h3>
+<h3>Welcome {{user.name}}!</h3>
 
 <div class="content">
-    <h4>Tus notas</h4>
     <div class="noteContainer">
-        <div *ngFor="let note of stickyNotes" class="stickyNote">
-            <p>{{ note.title }}</p>
-            <p>{{ note.text }}</p>  
+        <div *ngIf="thereAreNotes; else noNotes">
+            <div *ngFor="let note of stickyNotes" cdkDrag class="stickyNote" cdkDragBoundary=".noteContainer">
+                <app-stickynote [title]="note.title" [text]="note.text"></app-stickynote>
+            </div>
         </div>
-        <div *ngIf="!thereAreNotes">
-            <h4>{{stickyNotes}}</h4>
-        </div>
+
+        <ng-template #noNotes style="display: flex; flex-direction: row; justify-content: center;">
+            <div id="nothingToShowContainer">
+                <div>{{stickyNotes}} :(</div>
+                <img src="../../../assets/img/vacio.png" alt="Nothing to show">
+            </div>
+        </ng-template>
     </div>
 </div>

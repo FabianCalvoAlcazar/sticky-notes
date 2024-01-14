@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Global } from "./global.service";
-import { StickyNoteModel } from "../models/stickyNote";
 
 @Injectable()
 export class StickyNoteService{
@@ -28,8 +27,6 @@ export class StickyNoteService{
 
         headers = headers.set('Content-Type', 'application/json');
         headers = headers.set('Authorization', 'Bearer '+token);
-
-        console.log("Headers",headers)
 
         return this._http.get(this.url+"/stickyNotes/"+userId, {headers: headers})
 

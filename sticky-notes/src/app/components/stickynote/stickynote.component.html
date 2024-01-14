@@ -1,0 +1,33 @@
+<head>
+  <script src="./tinymce.js"></script>
+</head>
+
+<div class="stickyNoteCard">
+  <div *ngIf="!saved"class="title">
+    <h3>{{title}}</h3>
+  </div>
+  <div *ngIf="saved" class="title">
+    <h3>{{title}}</h3>
+    <img class="saved_logo" src="../../../assets/img/guardado.png" alt="Guardado">
+  </div>
+  <div class="text">
+
+  <editor [(ngModel)]="text" name="text" (onKeyUp)='changeDetected()' apiKey="ph8la4xzui02byny3axlrcw6v73fsiyovateqglt5m8qk4nv"
+    [init]="{
+      selector: '#myDiv',
+      plugins: 'lists',
+      toolbar: 'bold italic underline strikethrough | bullist numlist',
+      toolbar_location: 'bottom',
+      skin: this.skin,
+      content_css: this.content_css,
+      width: 270,
+      height: 150,
+      min_width: 200,
+      min_height: 200,
+      resize: 'both',
+      menubar: false
+    }"
+  ></editor>
+
+  </div>
+</div>

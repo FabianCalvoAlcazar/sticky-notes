@@ -1,10 +1,39 @@
-.stickyNote{
-    width: 10em;
-    background: red;
-    padding: 1em;
-    margin: 1em;
+.noteContainer{
+    width: 80%;
+    min-height: 600px;
+    border: 3px dashed #ccc;
+    margin: 0 auto;
+    background: #ccc;
+    border-radius: 20px;
 }
 
-li{
-    list-style: none;
+h3{
+    margin: 2rem 0px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.cdk-drag {
+    width: min-content;
+}
+
+#nothingToShowContainer{
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    padding: 5%;
+}
+
+#nothingToShowContainer img{
+    width: 50%;
+    max-width: 512px;
+    margin: 0 auto;
+}
+
+#nothingToShowContainer div{
+    text-align: center;
+    font-size: 40px;
+    width: auto;
+    margin: 0 auto;
 }
