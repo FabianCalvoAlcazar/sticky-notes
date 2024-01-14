@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sticky-notes:build:production"
+              "buildTarget": "sticky-notes:build:production"
             },
             "development": {
-              "browserTarget": "sticky-notes:build:development"
+              "buildTarget": "sticky-notes:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sticky-notes:build"
+            "buildTarget": "sticky-notes:build"
           }
         },
         "test": {
@@ -93,7 +93,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" }
             ],
             "styles": [
               "src/styles.scss"
