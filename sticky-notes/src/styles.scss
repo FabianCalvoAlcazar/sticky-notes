@@ -113,3 +113,27 @@ form input[disabled]:hover{
     cursor: pointer;
     margin: 0 auto;
 }
+
+.confirm-button{
+    color: #0e4d16;
+    border-radius: 1.5rem;
+    padding: 0.875rem 1rem;
+    background-color: #bcd8c1;
+    border-color: #bcd8c1;
+    margin: 0.5em;
+    cursor: pointer;
+    border: 1px solid #0e4d16;
+    font-size: 1em;
+}
+
+.cancel-button{
+    padding: 0.875rem;
+    color: white;
+    border-radius: 1.5rem;
+    background-color: gray;
+    border-color: gray;
+    margin: 0.3125em;
+    cursor: pointer;
+    border: 1px solid black;
+    font-size: 1em;
+}

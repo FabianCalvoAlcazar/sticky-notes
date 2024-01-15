@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { CdkDrag } from '@angular/cdk/drag-drop';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -30,7 +31,16 @@ import { StickynoteComponent } from "./components/stickynote/stickynote.componen
         FormsModule,
         HttpClientModule,
         CdkDrag,
-        StickynoteComponent
+        StickynoteComponent,
+        SweetAlert2Module.forRoot({
+            provideSwal: () => import('sweetalert2').then(({ default: swal }) => swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            }))
+        }) 
     ]
 })
 export class AppModule { }
