@@ -30,8 +30,8 @@
                 [ngClass]="{'validationError': (password.touched && password.invalid)}"
             ><br>
             <div class="button-container">
-                <button type="button" class="back-button" (click)="goBack()">Back</button>
-                <input type="submit" [disabled]="loginForm.invalid">
+                <button type="button" class="button back" (click)="goBack()">Back</button>
+                <button type="submit" class="button confirm" [disabled]="loginForm.invalid">Log In</button>
             </div>
         </form>
     </div>

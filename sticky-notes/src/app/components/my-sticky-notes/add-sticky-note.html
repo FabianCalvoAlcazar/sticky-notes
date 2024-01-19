@@ -1,0 +1,29 @@
+<div class="addStickyNoteDialogBackground">
+    <div class="wrapper">
+        <div class="noteDialog">
+            <h2>Add Sticky Note</h2>
+            <div id="addStickyNoteInputs">
+                <input [(ngModel)]="data.newNoteTitle" name="title" type="text" placeholder="Title" class="stickyNoteTitle">
+                <editor [(ngModel)]="data.newNoteText" name="text" apiKey="ph8la4xzui02byny3axlrcw6v73fsiyovateqglt5m8qk4nv"
+                [init]="{
+                plugins: 'lists',
+                toolbar: 'bold italic underline strikethrough | bullist numlist',
+                toolbar_location: 'bottom',
+                width: 'auto',
+                skin: this.skin,
+                content_css: this.content_css,
+                height: 500,
+                min_width: 200,
+                min_height: 200,
+                menubar: false,
+                resize: false
+                }"
+            ></editor>
+            </div>  `
+            <div class="addStickyNoteButtons">
+                <button class="button back" (click)="dialogRef.close()">Cancel</button>
+                <button class="button confirm" (click)="dialogRef.close(data)">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

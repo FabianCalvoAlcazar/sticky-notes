@@ -29,6 +29,5 @@ export class StickyNoteService{
         headers = headers.set('Authorization', 'Bearer '+token);
 
         return this._http.get(this.url+"/stickyNotes/"+userId, {headers: headers})
-
     }
 }
