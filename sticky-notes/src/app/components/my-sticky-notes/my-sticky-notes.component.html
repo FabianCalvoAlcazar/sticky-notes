@@ -7,9 +7,13 @@
 
 <div class="content">
     <div class="noteContainer">
-        <div *ngIf="thereAreNotes; else noNotes">
-            <div *ngFor="let note of stickyNotes" cdkDrag class="stickyNote" cdkDragBoundary=".noteContainer">
-                <app-stickynote [title]="note.title" [text]="note.text"></app-stickynote>
+        <div *ngIf="thereAreNotes; else noNotes" style="display: flex; flex-direction: row; justify-content: flex-start; flex-wrap: wrap;">
+            <!-- HERE IS WHERE THE STICKY NOTES ARE DISPLAYED -->
+            <div *ngFor="let note of stickyNotes" cdkDrag  [cdkDragFreeDragPosition]="note.positionX" class="stickyNote" cdkDragBoundary=".noteContainer">
+                <app-stickynote 
+                    [title]="note.title" 
+                    [text]="note.text"
+                ></app-stickynote>
             </div>
         </div>
 
