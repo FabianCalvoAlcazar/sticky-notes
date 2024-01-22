@@ -1,0 +1,54 @@
+.addStickyNoteDialogBackground{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1026!important;
+}
+
+.wrapper {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.noteDialog {
+    width: 50%;
+    min-width: 400px;
+    margin: auto 0;
+    background: white;
+    padding: 2em;
+    border-radius: 10px;
+}
+
+.noteDialog h2{
+    text-align: center;
+    margin-bottom: 1.3em;
+}
+
+.noteDialog input[name="title"]{
+    padding: 0 0.75em 0 0.75em;
+    align-items: baseline;
+    margin-bottom: 1em;
+    width: 30%;
+    min-width: 150px;
+    font-size: 16px;
+    height: 2.2em;
+    border-radius: 10px;
+}
+
+.addStickyNoteButtons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

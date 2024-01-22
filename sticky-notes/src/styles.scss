@@ -44,27 +44,6 @@ form input {
     min-width: 200px;
 }
 
-input[type="submit"] {
-    border: none;
-    font-size: 1rem;
-    color: #0e4d16;
-    font-weight: bold;
-    background-color: #bcd8c1;
-    width: 10em;
-    display: block;
-    padding: 0.875rem 1rem;
-    border-radius: 1.5rem;
-    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
-    cursor: pointer;
-    margin: 0 auto;
-}
-
-form input[disabled]{
-    background: #ccc;
-    color: white;
-    cursor: not-allowed;
-}
-
 form input[type="submit"]:hover,
 .back-button:hover{
     background-color: #abc4afc4;
@@ -96,44 +75,35 @@ form input[disabled]:hover{
     margin: 0 auto;
     margin-top: 30px;
     width: 80%;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.back-button{
-    border: none;
+.button[disabled]{
+    background: #ccc;
+    color: white;
+    cursor: not-allowed;
+}
+
+.button{
+    width: 7em;
     font-size: 1rem;
-    color: #0e4d16;
     font-weight: bold;
-    background-color: #bcd8c1;
-    width: 10em;
-    display: block;
     padding: 0.875rem 1rem;
     border-radius: 1.5rem;
     box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
     cursor: pointer;
-    margin: 0 auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: none;
 }
 
-.confirm-button{
+.confirm{
     color: #0e4d16;
-    border-radius: 1.5rem;
-    padding: 0.875rem 1rem;
     background-color: #bcd8c1;
     border-color: #bcd8c1;
-    margin: 0.5em;
-    cursor: pointer;
-    border: 1px solid #0e4d16;
-    font-size: 1em;
 }
 
-.cancel-button{
-    padding: 0.875rem;
+.back{
     color: white;
-    border-radius: 1.5rem;
     background-color: gray;
-    border-color: gray;
-    margin: 0.3125em;
-    cursor: pointer;
-    border: 1px solid black;
-    font-size: 1em;
 }

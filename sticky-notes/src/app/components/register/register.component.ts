@@ -46,8 +46,8 @@ export class RegisterComponent {
   goBack() {
     Swal.fire({
       customClass: {
-        confirmButton: "confirm-button",
-        cancelButton: "cancel-button"
+        confirmButton: "button confirm",
+        cancelButton: "button back"
       },
       buttonsStyling: false,
       icon: 'question',
