@@ -3,6 +3,8 @@ import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { StickyNoteModel } from 'src/app/models/stickyNote';
+import { StickyNoteService } from 'src/app/services/stickyNote.service';
 
 
 @Component({
@@ -17,15 +19,17 @@ import { EditorModule } from '@tinymce/tinymce-angular';
   styleUrl: './stickynote.component.scss'
 })
 export class StickynoteComponent implements OnInit{
+  
+  @Input() stickyNote!: StickyNoteModel;
 
-  @Input() title!:string;
-  @Input() text!:string;
   skin!: any;
   content_css!: any;
+
   public timeoutId:any;
-  
   public saving:boolean = false;
   public saved:boolean = false
+
+  constructor(private _stickyNoteService: StickyNoteService){}
 
   ngOnInit(): void {
     this.skin = (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide')
@@ -43,6 +47,11 @@ export class StickynoteComponent implements OnInit{
   save(){
     this.saving = true;
     this.timeoutId = setTimeout( () => {
+      this._stickyNoteService.updateStickyNote(this.stickyNote).subscribe(
+        response => {
+          console.log(response)
+        }
+      )
       this.saving = false;
       this.saved = true;
       setTimeout(()=>{

@@ -35,9 +35,19 @@ export class StickyNoteService{
         headers = headers.set('Authorization', 'Bearer '+token);
 
         let body = JSON.stringify(newStickyNote);
-
-        console.log(this._http.post(this.url+"/save", body, {headers: headers}))
         
         return this._http.post(this.url+"/save", body, {headers: headers})
+    }
+
+    updateStickyNote(newStickyNote:any):Observable<any>{
+        let token = localStorage.getItem("token");
+
+        let headers = new HttpHeaders();
+        headers = headers.set('Content-Type', 'application/json');
+        headers = headers.set('Authorization', 'Bearer '+token);
+
+        let body = JSON.stringify(newStickyNote);
+
+        return this._http.put(this.url+"/update/"+newStickyNote.id, body, {headers: headers})
     }
 }
