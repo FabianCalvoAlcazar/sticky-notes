@@ -11,8 +11,7 @@
             <!-- HERE IS WHERE THE STICKY NOTES ARE DISPLAYED -->
             <div *ngFor="let note of stickyNotes" cdkDrag  [cdkDragFreeDragPosition]="note.positionX" class="stickyNote" cdkDragBoundary=".noteContainer">
                 <app-stickynote 
-                    [title]="note.title" 
-                    [text]="note.text"
+                    [stickyNote]="note" 
                 ></app-stickynote>
             </div>
         </div>

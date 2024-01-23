@@ -57,7 +57,7 @@
 
         <div class="button-container">
             <button class="button back" type="button" (click)="goBack()">Back</button>
-            <button class="button confirm" type="button" [disabled]="registerForm.invalid || (user.password != user.confirmPassword)">Register</button>
+            <button class="button confirm" type="submit" [disabled]="registerForm.invalid || (user.password != user.confirmPassword)">Register</button>
         </div>
     </form>
   </div>

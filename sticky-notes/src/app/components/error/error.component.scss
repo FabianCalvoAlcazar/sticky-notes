@@ -1,5 +1,6 @@
 .content{
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -7,4 +8,15 @@ img{
     margin: 0 auto;
     margin-top: 5rem;
     border-radius: 50%;
+}
+
+a {
+    text-decoration: none; 
+    margin: auto auto;
+    margin-top: 60px;
+    width: 124px;
+}
+
+a:hover {
+    background: #bcd8c1d5;
 }

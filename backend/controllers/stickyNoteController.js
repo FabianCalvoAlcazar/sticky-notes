@@ -6,42 +6,6 @@ let tokenPassword = require('./global.js')
 let stickyNoteModel = require('../models/sticky-note.js');
 
 var controller = {
-    saveStickyNote: function (req,res) {
-        let newStickyNote = new stickyNoteModel();
-
-        newStickyNote.owner = req.body.owner;
-        newStickyNote.title = req.body.title;
-        newStickyNote.text = req.body.text;
-        newStickyNote.positionX = req.body.positionX;
-        newStickyNote.positionY = req.body.positionY;
-
-        if( !req.headers.authorization || newStickyNote.owner == null || newStickyNote.title == null || newStickyNote.text == null || newStickyNote.positionX == null || newStickyNote.positionY == null) {
-            return res.status(400).send({
-                "message": "The petition is invalid.",
-                "status": false
-            })
-        }
-
-        let userToken = req.headers.authorization.split(" ")[1];
-
-        try {
-            jwt.verify(userToken, tokenPassword);
-
-            newStickyNote.save().then((model) => {
-                return res.status(200).send({
-                    "message": "Sticky Note saved succesfully!",
-                    "status": true,
-                    "data": model
-                })
-            })
-        } catch (error) {
-            return res.status(401).send({
-                "message": "Something went wrong.",
-                "status": false
-            })
-        }
-    },
-
     getStickyNotes: function (req,res) {
         let userId = req.params.user_id;
 
@@ -96,6 +60,80 @@ var controller = {
                 errorCode: err
             })
         })
+    },
+
+    saveStickyNote: function (req,res) {
+        let newStickyNote = new stickyNoteModel();
+
+        newStickyNote.owner = req.body.owner;
+        newStickyNote.title = req.body.title;
+        newStickyNote.text = req.body.text;
+        newStickyNote.positionX = req.body.positionX;
+        newStickyNote.positionY = req.body.positionY;
+
+        if( !req.headers.authorization || newStickyNote.owner == null || newStickyNote.title == null || newStickyNote.text == null || newStickyNote.positionX == null || newStickyNote.positionY == null) {
+            return res.status(400).send({
+                "message": "The petition is invalid.",
+                "status": false
+            })
+        }
+
+        let userToken = req.headers.authorization.split(" ")[1];
+
+        try {
+            jwt.verify(userToken, tokenPassword);
+
+            newStickyNote.save().then((model) => {
+                return res.status(200).send({
+                    "message": "Sticky Note saved succesfully!",
+                    "status": true,
+                    "data": model
+                })
+            })
+        } catch (error) {
+            return res.status(401).send({
+                "message": "Something went wrong.",
+                "status": false
+            })
+        }
+    },
+
+    updateStickyNote: function (req,res) {
+        let stickyNoteId = req.body._id;
+        let updatedStickyNote = req.body;
+
+        if( stickyNoteId == null || !req.headers.authorization || updatedStickyNote == null) {
+            return res.status(400).send({
+                "message": "The petition is invalid.",
+                "status": false
+            })
+        }
+
+        let userToken = req.headers.authorization.split(" ")[1];
+
+        try {
+            jwt.verify(userToken, tokenPassword);
+
+            stickyNoteModel.findByIdAndUpdate(stickyNoteId, updatedStickyNote, {new:true}).then((updated) => {
+                if(!updated) {
+                    return res.status(404).send({
+                        "message": "Nothing to show",
+                        "status": false
+                    })
+                }
+                return res.status(200).send({
+                    "message": "Sticky Note Updated Succesfully!",
+                    "status": true,
+                    "data": updated
+                })
+            })
+        } catch (error) {
+            return res.status(401).send({
+                "message": "Something went wrong.",
+                "status": false,
+                "error": error
+            })
+        }
     }
 }
 
