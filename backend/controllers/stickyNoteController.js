@@ -139,31 +139,39 @@ var controller = {
 
         let stickyNoteId = req.body._id;
 
-        if( stickyNoteId == null ) {
+        if( stickyNoteId == null || !req.headers.authorization) {
             return res.status(400).send({
                 "message": "The petition is invalid.",
                 "status": false
             })
         }
 
-        stickyNoteModel.findByIdAndDelete(stickyNoteId).then((stickyNoteDeleted)=>{
-            if(!stickyNoteDeleted) {
+        let userToken = req.headers.authorization.split(" ")[1];
+
+        try {
+            jwt.verify(userToken, tokenPassword);
+
+            stickyNoteModel.findByIdAndDelete(stickyNoteId).then((stickyNoteDeleted)=>{
+                if(!stickyNoteDeleted) {
+                    return res.status(200).send({
+                        "message": "Sticky Note not found.",
+                        "status": false
+                    })
+                }
                 return res.status(200).send({
-                    "message": "Sticky Note not found.",
-                    "status": false
+                    "message": "Sticky Note deleted succesfully.",
+                    "data": stickyNoteDeleted,
+                    "status": true
                 })
-            }
-            return res.status(200).send({
-                "message": "Sticky Note deleted succesfully.",
-                "data": stickyNoteDeleted,
-                "status": true
             })
-        }).catch((err)=>{
-            return res.status(500).send({
-                "message": "Something went wrong",
-                "error": err
+
+        } catch (error) {
+            return res.status(401).send({
+                "message": "Something went wrong.",
+                "status": false,
+                "error": error
             })
-        })
+        }
     }
 }
 

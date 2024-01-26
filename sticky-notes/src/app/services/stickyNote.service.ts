@@ -50,4 +50,16 @@ export class StickyNoteService{
 
         return this._http.put(this.url+"/update/"+newStickyNote.id, body, {headers: headers})
     }
+
+    deleteStickyNote(newStickyNote:any):Observable<any>{
+        let token = localStorage.getItem("token");
+
+        let headers = new HttpHeaders();
+        headers = headers.set('Content-Type', 'application/json');
+        headers = headers.set('Authorization', 'Bearer '+token);
+
+        let body = JSON.stringify(newStickyNote);
+
+        return this._http.put(this.url+"/update/"+newStickyNote.id, body, {headers: headers})
+    }
 }
