@@ -134,6 +134,36 @@ var controller = {
                 "error": error
             })
         }
+    }, 
+    deleteStickyNote: function (req, res) {
+
+        let stickyNoteId = req.body._id;
+
+        if( stickyNoteId == null ) {
+            return res.status(400).send({
+                "message": "The petition is invalid.",
+                "status": false
+            })
+        }
+
+        stickyNoteModel.findByIdAndDelete(stickyNoteId).then((stickyNoteDeleted)=>{
+            if(!stickyNoteDeleted) {
+                return res.status(200).send({
+                    "message": "Sticky Note not found.",
+                    "status": false
+                })
+            }
+            return res.status(200).send({
+                "message": "Sticky Note deleted succesfully.",
+                "data": stickyNoteDeleted,
+                "status": true
+            })
+        }).catch((err)=>{
+            return res.status(500).send({
+                "message": "Something went wrong",
+                "error": err
+            })
+        })
     }
 }
 
