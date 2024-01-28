@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { StickyNoteModel } from 'src/app/models/stickyNote';
 import { StickyNoteService } from 'src/app/services/stickyNote.service';
@@ -29,7 +30,7 @@ export class StickynoteComponent implements OnInit{
   public saving:boolean = false;
   public saved:boolean = false
 
-  constructor(private _stickyNoteService: StickyNoteService){}
+  constructor(private _stickyNoteService: StickyNoteService, private _router:Router){}
 
   ngOnInit(): void {
     this.skin = (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide')
@@ -58,5 +59,17 @@ export class StickynoteComponent implements OnInit{
         this.saved = false;
       }, 2000)
     }, 1000); // Time to save changes
+  }
+
+  delete(){
+    this._stickyNoteService.deleteStickyNote(this.stickyNote).subscribe(
+      response => {
+        console.log(response)
+        const currentUrl = this._router.url;
+        this._router.navigateByUrl('/empty', { skipLocationChange: true }).then(() => {
+          this._router.navigate([currentUrl])
+        });
+      }
+    )
   }
 }

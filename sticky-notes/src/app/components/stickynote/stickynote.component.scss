@@ -24,7 +24,18 @@
 }
 
 .saved_logo{
-    width: 16px; 
-    height: 16px; 
+    width: 24px; 
+    height: 24px; 
     margin-top: 4px;
+}
+
+.delete_button{
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+.delete_button:hover{
+    background: #0000001a;
 }

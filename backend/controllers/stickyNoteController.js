@@ -99,7 +99,7 @@ var controller = {
     },
 
     updateStickyNote: function (req,res) {
-        let stickyNoteId = req.body._id;
+        let stickyNoteId = req.params.id;
         let updatedStickyNote = req.body;
 
         if( stickyNoteId == null || !req.headers.authorization || updatedStickyNote == null) {
@@ -137,7 +137,7 @@ var controller = {
     }, 
     deleteStickyNote: function (req, res) {
 
-        let stickyNoteId = req.body._id;
+        let stickyNoteId = req.params.id;
 
         if( stickyNoteId == null || !req.headers.authorization) {
             return res.status(400).send({
